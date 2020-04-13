@@ -1,0 +1,87 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+    background-color: DodgerBlue;
+    height: 700px;
+    border-radius: 10px;
+  }
+  
+  .flex-container > div[id='movie-ticket-machine'] {
+    background-color: #f1f1f1;
+    width: 700px;
+    margin: 10px;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+
+  .flex-container > div[id='state'] {
+    background-color: #f1f1f1;
+    width: 700px;
+    margin: 10px;
+    text-align: left;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+
+  fieldset[name="language"]{
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 40px;
+  }
+  fieldset[name="Input"]{
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 210px;
+  }
+  label{
+     margin-top: 200px; 
+  }
+  body{
+      font-family: 'Lucida Console';
+  }
+  
+  .flexLg {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .flexLg > div {
+    width: 100px;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+    color: white;
+  }
+
+  div.flexLg > div {
+      
+      border-radius: 5px;
+      background-color: gainsboro;
+      width: 70px;
+      height: 70px;
+  }
+
+  div#stateStep{
+      height: 170px;
+      text-align: center;
+  }
+
+  .flex-result {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .flex-result > div {
+    background-color: gainsboro;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+    border-radius: 5px;
+    width: 200px;
+    height: 100px;
+  }
+  
