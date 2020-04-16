@@ -1,31 +1,37 @@
 var inputbutton = []
-var [touchscreen, goBack, chooseMV, chooseTime, chooseSeat, chooseDrink, Nomember, scanMember, money, payCredit, money1000, money100, money20, scanCredit] = [false, false, false, false, false,false, false, false, false, false,false, false, false, false]
+//var [touchscreen, goBack, chooseMV, chooseTime, chooseSeat, chooseDrink, Nomember, scanMember, money, payCredit, money1000, money100, money20, scanCredit] = [false, false, false, false, false,false, false, false, false, false,false, false, false, false]
+var isMember = false
+var isCredit = false
+var isSofa = false
+var price = 0
+var paid = 0
 /*
-A แตะหน้าจอเพื่อไปต่อ
-B กดกลับไปstate ก่อนหน้า
-C กดเลือกภาพยนตร์
-D กดเลือกเวลาฉายภาพยนตร์
-E กดเลือกที่นั่ง
-F กดเลือกขนมและเครื่องดื่ม
-G ไม่เป็นสมาชิก
-็H สแกนบัตรสมาชิก
-I ชำระเงินสด
-J จ่ายบัตรเครดิต
-K ใส่แบงค์ 1000
-L 100
-M 20
-N แสกนบัตรเครดิต
+A แตะหน้าจอเพื่อไปต่อ       S0 แสดงโฆษณา
+B กดกลับไปstate ก่อนหน้า   S1 เลือกภาพยนต์
+C กดเลือกภาพยนตร์         S2 เลือกเวลาฉาย
+D กดเลือกเวลาฉายภาพยนตร์   S3 เลือกที่นั่ง
+E กดเลือกที่นั่งธรรมดา        S4 เลือกขนมและเครื่องดื่ม
+F กดเลือกที่นั่งโซฟา         S5 ตรวจสอบสมาชิก
+G กดเลือกขนมและเครื่องดื่ม    S6 เลือกวิธีชำระ
+H ไม่เป็นสมาชิก             S7 ชำระยังไม่ครบ
+็I สแกนบัตรสมาชิก          S8 ชำระครบ
+J ชำระเงินสด              S9 ชำระเกิน
+K จ่ายบัตรเครดิต            
+L ใส่แบงค์ 1000
+M 100
+N 20
+O สแกนบัตรเครดิต
 */
 const machine = {
-  state: "INITIAL",
+  state: "S0",
   transitions:{
-    INITIAL:{
+    S0:{
       A: function (){
         console.log('A')
-        document.getElementById("stateImage").src = './s1.jpg'
-        document.getElementById("machineImage").src = './screen2.jpg'
+        document.getElementById("stateImage").src = '/images/states/s1.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen1.jpg'
         console.log(this.state)
-        this.changeState('B')
+        this.changeState('S1')
       },
       B: function (){
         console.log("ไม่สามารถย้อนกลับได้")
@@ -34,75 +40,637 @@ const machine = {
         console.log("ไม่สามารถกดเลือกภาพยนตร์")
       },
       D: function(){
-        console.log("ไม่สามารถกดเลือกที่นั่ง")
+        console.log("ไม่สามารถกดเลือกเวลา")
       },
       E: function(){
-        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+        console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
       },
       F: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
       },
       G: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
       },
       H: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
       },
       I: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
       },
       J: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถเลือกชำระเงินสด")
       },
       K: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
       },
       M: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
       },
       N: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
-      }
-    },
-    B: {
-      A: function(){
-        console.log('A')
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
       },
-      B: function(){
+      O: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
+      }
+    }, //done
+    S1: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
+        console.log("ไม่สามารถย้อนกลับได้")
+      },
+      C: function(){
+        console.log('C')
+        document.getElementById("stateImage").src = '/images/states/s2.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen2.jpg'
+        console.log(this.state)
+        this.changeState('S2')
+      },
+      D: function(){
+        console.log("ไม่สามารถกดเลือกเวลา")
+      },
+      E: function(){
+        console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
+      },
+      F: function(){
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
+      },
+      G: function(){
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+      },
+      H: function(){
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+      },
+      I: function(){
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+      },
+      J: function(){
+        console.log("ไม่สามารถเลือกชำระเงินสด")
+      },
+      K: function(){
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+      },
+      M: function(){
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+      },
+      N: function(){
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      O: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
+      }
+    }, //done
+    S2: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
+        //console.log("ไม่สามารถย้อนกลับได้")
+        console.log('B')
+        document.getElementById("stateImage").src = '/images/states/s1.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen1.jpg'
+        console.log(this.state)
+        this.changeState('S1')
+      },
+      C: function(){
+        console.log("ไม่สามารถกดเลือกภาพยนตร์")
+      },
+      D: function(){
+        //console.log("ไม่สามารถกดเลือกเวลา")
+        console.log('D')
+        document.getElementById("stateImage").src = '/images/states/s3.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen3.jpg'
+        console.log(this.state)
+        this.changeState('S3')
+      },
+      E: function(){
+        console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
+      },
+      F: function(){
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
+      },
+      G: function(){
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+      },
+      H: function(){
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+      },
+      I: function(){
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+      },
+      J: function(){
+        console.log("ไม่สามารถเลือกชำระเงินสด")
+      },
+      K: function(){
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+      },
+      M: function(){
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+      },
+      N: function(){
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      O: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
+      }
+    }, //done
+    S3: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
+        //console.log("ไม่สามารถย้อนกลับได้")
+        console.log('B')
+        document.getElementById("stateImage").src = '/images/states/s2.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen2.jpg'
+        console.log(this.state)
+        this.changeState('S3')
+      },
+      C: function(){
+        console.log("ไม่สามารถกดเลือกภาพยนตร์")
+      },
+      D: function(){
+        console.log("ไม่สามารถกดเลือกเวลา")
+      },
+      E: function(){
+        //console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
+        console.log('E')
+        isSofa = false
+        document.getElementById("stateImage").src = '/images/states/s4.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
+        console.log(this.state)
+        this.changeState('S4')
+      },
+      F: function(){
+        //console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
+        console.log('F')
+        isSofa = true
+        document.getElementById("stateImage").src = '/images/states/s4.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
+        console.log(this.state)
+        this.changeState('S4')
+      },
+      G: function(){
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+      },
+      H: function(){
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+      },
+      I: function(){
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+      },
+      J: function(){
+        console.log("ไม่สามารถเลือกชำระเงินสด")
+      },
+      K: function(){
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+      },
+      M: function(){
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+      },
+      N: function(){
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      O: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
+      }
+    }, //done
+    S4: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
+        //console.log("ไม่สามารถย้อนกลับได้")
+        console.log('B')
+        isSofa = false
+        document.getElementById("stateImage").src = '/images/states/s3.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen3.jpg'
+        console.log(this.state)
+        this.changeState('S3')
+      },
+      C: function(){
+        console.log("ไม่สามารถกดเลือกภาพยนตร์")
+      },
+      D: function(){
+        console.log("ไม่สามารถกดเลือกเวลา")
+      },
+      E: function(){
+        console.log("ไม่สามารถกดเลือกที่นั่งได้")
+      },
+      F: function(){
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
+      },
+      G: function(){
+        //console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+        console.log('G')
+        document.getElementById("stateImage").src = '/images/states/s5.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen5.jpg'
+        console.log(this.state)
+        this.changeState('S5')
+      },
+      H: function(){
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+      },
+      I: function(){
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+      },
+      J: function(){
+        console.log("ไม่สามารถเลือกชำระเงินสด")
+      },
+      K: function(){
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+      },
+      M: function(){
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+      },
+      N: function(){
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      O: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
+      }
+    }, //done
+    S5: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
+        //console.log("ไม่สามารถย้อนกลับได้")
+        console.log('B')
+        document.getElementById("stateImage").src = '/images/states/s4.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
+        console.log(this.state)
+        this.changeState('S4')
+      },
+      C: function(){
+        console.log("ไม่สามารถกดเลือกภาพยนตร์")
+      },
+      D: function(){
+        console.log("ไม่สามารถกดเลือกเวลา")
+      },
+      E: function(){
+        console.log("ไม่สามารถกดเลือกที่นั่งได้")
+      },
+      F: function(){
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
+      },
+      G: function(){
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+      },
+      H: function(){
+        //console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+        isMember = false
+        console.log('H')
+        document.getElementById("stateImage").src = '/images/states/s6.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
+        console.log(this.state)
+        this.changeState('S6')
+      },
+      I: function(){
+        //console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+        isMember = true
+        console.log('I')
+        document.getElementById("stateImage").src = '/images/states/s6.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
+        console.log(this.state)
+        this.changeState('S6')
+      },
+      J: function(){
+        console.log("ไม่สามารถเลือกชำระเงินสด")
+      },
+      K: function(){
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+      },
+      M: function(){
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+      },
+      N: function(){
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      O: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
+      }
+    }, //done
+    S6: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
+        //console.log("ไม่สามารถย้อนกลับได้")
+        isMember = false
+        console.log('B')
+        document.getElementById("stateImage").src = '/images/states/s5.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen5.jpg'
+        console.log(this.state)
+        this.changeState('S5')
+      },
+      C: function(){
+        console.log("ไม่สามารถกดเลือกภาพยนตร์")
+      },
+      D: function(){
+        console.log("ไม่สามารถกดเลือกเวลา")
+      },
+      E: function(){
+        console.log("ไม่สามารถกดเลือกที่นั่งได้")
+      },
+      F: function(){
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
+      },
+      G: function(){
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+      },
+      H: function(){
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+      },
+      I: function(){
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+      },
+      J: function(){
+        //console.log("ไม่สามารถเลือกชำระเงินสด")
+        isCredit = false
+        console.log('J')
+        document.getElementById("stateImage").src = '/images/states/s7.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
+        console.log(this.state)
+        this.changeState('S7')
+      },
+      K: function(){
+        //console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+        isCredit = true
+        console.log('K')
+        document.getElementById("stateImage").src = '/images/states/s7.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
+        console.log(this.state)
+        this.changeState('S7')
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+      },
+      M: function(){
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+      },
+      N: function(){
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      O: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
+      }
+    }, //done
+    S7: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
+        //console.log("ไม่สามารถย้อนกลับได้")
+        isCredit = false
+        console.log('B')
+        document.getElementById("stateImage").src = '/images/states/s6.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
+        console.log(this.state)
+        this.changeState('S6')
+      },
+      C: function(){
+        console.log("ไม่สามารถกดเลือกภาพยนตร์")
+      },
+      D: function(){
+        console.log("ไม่สามารถกดเลือกเวลา")
+      },
+      E: function(){
+        console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
+      },
+      F: function(){
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
+      },
+      G: function(){
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+      },
+      H: function(){
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+      },
+      I: function(){
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+      },
+      J: function(){
+        console.log("ไม่สามารถเลือกชำระเงินสด")
+      },
+      K: function(){
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+      },
+      L: function(){
+        if(isCredit){
+          console.log("ไม่สามารถใส่แบงค์ 1000 บาท")    
+        }
+        else{
+          paid = paid + 1000
+          if( paid > price ){
+            console.log('L')
+            document.getElementById("stateImage").src = '/images/states/s9.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
+            console.log(this.state)
+            this.changeState('S9')
+          }
+          else if( paid == price ){
+            console.log('L')
+            document.getElementById("stateImage").src = '/images/states/s8.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
+            console.log(this.state)
+            this.changeState('S8')
+          }
+          else{
+            console.log('L')
+            document.getElementById("stateImage").src = '/images/states/s7.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
+            console.log(this.state)
+            this.changeState('S7')
+          }
+        }
+      },
+      M: function(){
+        if(isCredit){
+          console.log("ไม่สามารถใส่แบงค์ 100 บาท")    
+        }
+        else{
+          paid = paid + 100
+          if( paid > price ){
+            console.log('M')
+            document.getElementById("stateImage").src = '/images/states/s9.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
+            console.log(this.state)
+            this.changeState('S9')
+          }
+          else if( paid == price ){
+            console.log('M')
+            document.getElementById("stateImage").src = '/images/states/s8.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
+            console.log(this.state)
+            this.changeState('S8')
+          }
+          else{
+            console.log('M')
+            document.getElementById("stateImage").src = '/images/states/s7.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
+            console.log(this.state)
+            this.changeState('S7')
+          }
+        }
+      },
+      N: function(){
+        if(isCredit){
+          console.log("ไม่สามารถใส่แบงค์ 20 บาท")    
+        }
+        else{
+          paid = paid + 100
+          if( paid > price ){
+            console.log('N')
+            document.getElementById("stateImage").src = '/images/states/s9.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
+            console.log(this.state)
+            this.changeState('S9')
+          }
+          else if( paid == price ){
+            console.log('N')
+            document.getElementById("stateImage").src = '/images/states/s8.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
+            console.log(this.state)
+            this.changeState('S8')
+          }
+          else{
+            console.log('N')
+            document.getElementById("stateImage").src = '/images/states/s7.jpg'
+            document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
+            console.log(this.state)
+            this.changeState('S7')
+          }
+        }
+      },
+      O: function(){
+        if(isCredit){
+          console.log('O')
+          document.getElementById("stateImage").src = '/images/states/s8.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
+          console.log(this.state)
+          this.changeState('S8')
+        }
+        else{
+          console.log("ไม่สามารถสแกนบัตรเครดิต")
+        }
+      }
+    }, //done
+    S8: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
         console.log("ไม่สามารถย้อนกลับได้")
       },
       C: function(){
         console.log("ไม่สามารถกดเลือกภาพยนตร์")
       },
       D: function(){
-        console.log("ไม่สามารถกดเลือกที่นั่ง")
+        console.log("ไม่สามารถกดเลือกเวลา")
       },
       E: function(){
-        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+        //console.log("ไม่สามารถกดเลือกที่นั่งได้")
+        console.log('E')
+        document.getElementById("stateImage").src = '/images/states/s4.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
+        console.log(this.state)
+        this.changeState('S4')
       },
       F: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
       },
       G: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
       },
       H: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
       },
       I: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถเลือกชำระเงินสด")
       },
       J: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
       },
       K: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
       },
       M: function(){
-        console.log("ไม่สามารถย้อนกลับได้")
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
       },
       N: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
+      }
+    },
+    S9: {
+      A: function (){
+        console.log("ไม่สามารถกดไปต่อได้")
+      },
+      B: function (){
         console.log("ไม่สามารถย้อนกลับได้")
+      },
+      C: function(){
+        console.log("ไม่สามารถกดเลือกภาพยนตร์")
+      },
+      D: function(){
+        console.log("ไม่สามารถกดเลือกเวลา")
+      },
+      E: function(){
+        //console.log("ไม่สามารถกดเลือกที่นั่งได้")
+        console.log('E')
+        document.getElementById("stateImage").src = '/images/states/s4.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
+        console.log(this.state)
+        this.changeState('S4')
+      },
+      F: function(){
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+      },
+      G: function(){
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+      },
+      H: function(){
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+      },
+      I: function(){
+        console.log("ไม่สามารถเลือกชำระเงินสด")
+      },
+      J: function(){
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+      },
+      K: function(){
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+      },
+      L: function(){
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+      },
+      M: function(){
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      N: function(){
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
       }
     }
   },
@@ -129,20 +697,112 @@ let Jeff = Object.create(machine, {
 });
 
 function clickA(){
-  [touchscreen,goBack] = [!touchscreen,false]
+  //[touchscreen,goBack] = [!touchscreen,false]
   Jeff.dispatch("A")
   console.log(Jeff.state)
   inputbutton.push("A")
   document.getElementById("languageText").innerHTML = inputbutton.join(" ")
 }
-
 function clickB(){
-  [touchscreen,goBack] = [false,!goBack]
+  //[touchscreen,goBack] = [false,!goBack]
   Jeff.dispatch("B")
   console.log(Jeff.state)
   inputbutton.push("B")
   document.getElementById("languageText").innerHTML = inputbutton.join(" ")
 }
+function clickC(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("C")
+  console.log(Jeff.state)
+  inputbutton.push("C")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickD(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("D")
+  console.log(Jeff.state)
+  inputbutton.push("D")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickE(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("E")
+  console.log(Jeff.state)
+  inputbutton.push("E")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickF(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("F")
+  console.log(Jeff.state)
+  inputbutton.push("F")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickG(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("G")
+  console.log(Jeff.state)
+  inputbutton.push("G")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickH(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("H")
+  console.log(Jeff.state)
+  inputbutton.push("H")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickI(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("I")
+  console.log(Jeff.state)
+  inputbutton.push("I")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickJ(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("J")
+  console.log(Jeff.state)
+  inputbutton.push("J")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickK(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("K")
+  console.log(Jeff.state)
+  inputbutton.push("K")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickL(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("L")
+  console.log(Jeff.state)
+  inputbutton.push("L")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickM(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("M")
+  console.log(Jeff.state)
+  inputbutton.push("M")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickN(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("N")
+  console.log(Jeff.state)
+  inputbutton.push("N")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function clickO(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("O")
+  console.log(Jeff.state)
+  inputbutton.push("O")
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+
+
 
 // function product() {
 //   let str = ""
