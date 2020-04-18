@@ -1,54 +1,76 @@
 <!DOCTYPE html>
 
 <html class="no-js">
-  <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link rel="stylesheet" href="index.css" />
-  </head>
 
-  <body>
-    <script src="index.js"></script>
-    <div class="flex-container">
-      <div id="movie-ticket-machine">
-        <b>Movie ticket machine</b><br>
-        <img src="screen.jpg" style="width:530px" id="machineImage"/>
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <link rel="stylesheet" href="index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Vidaloka&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <script src="index.js"></script>
+
+  <div class="header">
+    <div class="container">
+      <h1>Theory of Computation Project</h1>
+    </div>
+  </div>
+
+
+  <div class="flex-container">
+    <div id="movie-ticket-machine">
+      <p>Movie ticket machine</p>
+      <img src="screen.jpg" style="width:530px" id="machineImage" />
+    </div>
+    <div id="state">
+      <!-- <b>Language</b>  -->
+      <fieldset name="language">
+        <legend id="lg">Language</legend>
+        <div id="LgInput">
+          <label id="languageText"></label>
+        </div>
+      </fieldset>
+      <div id="stateStep">
+        <p>state something...</p>
+        <img src="s0.jpg" alt="oh no!" style="width: 400px;" id="stateImage">
       </div>
-      <div id="state">
-        <!-- <b>Language</b>  -->
-        <fieldset name="language">
-          <legend id="lg">Language</legend>
-          <div>
-            <label id="languageText"></label>
-          </div>
-        </fieldset>
-        <div id="stateStep">
-          <p>state something...</p>
-          <img src="s0.jpg" alt="oh no!" style="width: 400px;" id="stateImage" >
-        </div>
-        <fieldset name="Input">
-          <legend id="lg">Input</legend>
+      <fieldset name="Input">
+        <legend id="lg">Input</legend>
 
-          <div class="flexLg">
-            <input type="button" value="A" onclick="clickA()">
-            <input type="button" value="B" onclick="clickB()">
-            <input type="button" value="C" onclick="clickC()">
-            <input type="button" value="D" onclick="clickD()">
-            <input type="button" value="E" onclick="clickE()">
-            <input type="button" value="F" onclick="clickF()">
-            <input type="button" value="G" onclick="clickG()">
-            <input type="button" value="H" onclick="clickH()">
-            <input type="button" value="I" onclick="clickI()">
-            <input type="button" value="J" onclick="clickJ()">
-            <input type="button" value="K" onclick="clickK()">
-            <input type="button" value="L" onclick="clickL()">
-          </div>
-        </fieldset>
-        <div class="flex-result">
-          <div></div>
-          <div></div>
+        <div class="flexLg">
+          <input type="button" value="A" onclick="clickA()">
+          <input type="button" value="B" onclick="clickB()">
+          <input type="button" value="C" onclick="clickC()">
+          <input type="button" value="D" onclick="clickD()">
+          <input type="button" value="E" onclick="clickE()">
+          <input type="button" value="F" onclick="clickF()">
+          <input type="button" value="G" onclick="clickG()">
+          <input type="button" value="H" onclick="clickH()">
+          <input type="button" value="I" onclick="clickI()">
+          <input type="button" value="J" onclick="clickJ()">
+          <input type="button" value="K" onclick="clickK()">
+          <input type="button" value="L" onclick="clickL()">
         </div>
+      </fieldset>
+      <div class="flex-result">
+        <div></div>
+        <div></div>
       </div>
     </div>
-  </body>
+  </div>
+  <footer>
+    <div class="container">
+      <h2>Made by</h2>
+      <p>60010325 Nattapat Puangpipat</p>
+      <p>60010325 Nattapat Puangpipat</p>
+      <p>60010325 Nattapat Puangpipat</p>
+      <p>60010325 Nattapat Puangpipat</p>
+      <p>60010325 Nattapat Puangpipat</p>
+      <p>60010325 Nattapat Puangpipat</p>
+    </div>
+  </footer>
+</body>
+
 </html>
