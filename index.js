@@ -1,10 +1,10 @@
 var inputbutton = []
-//var [touchscreen, goBack, chooseMV, chooseTime, chooseSeat, chooseDrink, Nomember, scanMember, money, payCredit, money1000, money100, money20, scanCredit] = [false, false, false, false, false,false, false, false, false, false,false, false, false, false]
 var isMember = false
-var isCredit = false
-var isSofa = false
-var price = 0
+var amount = 0
+var ticket = 0
 var paid = 0
+var total_price = 0
+const password = 010520
 /*
 A แตะหน้าจอเพื่อไปต่อ       S0 แสดงโฆษณา
 B กดกลับไปstate ก่อนหน้า   S1 เลือกภาพยนต์
@@ -30,7 +30,7 @@ const machine = {
         console.log('A')
         document.getElementById("stateImage").src = '/images/states/s1.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen1.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S1')
       },
       B: function (){
@@ -87,7 +87,7 @@ const machine = {
         console.log('C')
         document.getElementById("stateImage").src = '/images/states/s2.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen2.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S2')
       },
       D: function(){
@@ -136,7 +136,7 @@ const machine = {
         console.log('B')
         document.getElementById("stateImage").src = '/images/states/s1.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen1.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S1')
       },
       C: function(){
@@ -147,7 +147,7 @@ const machine = {
         console.log('D')
         document.getElementById("stateImage").src = '/images/states/s3.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen3.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S3')
       },
       E: function(){
@@ -193,8 +193,8 @@ const machine = {
         console.log('B')
         document.getElementById("stateImage").src = '/images/states/s2.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen2.jpg'
-        console.log(this.state)
-        this.changeState('S3')
+        //console.log(this.state)
+        this.changeState('S2')
       },
       C: function(){
         console.log("ไม่สามารถกดเลือกภาพยนตร์")
@@ -205,20 +205,34 @@ const machine = {
       E: function(){
         //console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
         console.log('E')
-        isSofa = false
-        document.getElementById("stateImage").src = '/images/states/s4.jpg'
-        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
-        console.log(this.state)
-        this.changeState('S4')
+        amount = prompt('Enter amount of ticket.')
+        if(amount > 0){
+          console.log(amount)
+          ticket = 240
+          document.getElementById("stateImage").src = '/images/states/s4.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
+          //console.log(this.state)
+          this.changeState('S4')
+        }
+        else{
+          alert('Please enter positive number!!')
+        }
       },
       F: function(){
         //console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
         console.log('F')
-        isSofa = true
-        document.getElementById("stateImage").src = '/images/states/s4.jpg'
-        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
-        console.log(this.state)
-        this.changeState('S4')
+        amount = prompt('Enter amount of ticket.')
+        if(amount > 0){
+          console.log(amount)
+          ticket = 360
+          document.getElementById("stateImage").src = '/images/states/s4.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
+          //console.log(this.state)
+          this.changeState('S4')
+        }
+        else{
+          alert('Please enter positive number!!')
+        }
       },
       G: function(){
         console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
@@ -255,10 +269,11 @@ const machine = {
       B: function (){
         //console.log("ไม่สามารถย้อนกลับได้")
         console.log('B')
-        isSofa = false
+        amount = 0
+        ticket = 0
         document.getElementById("stateImage").src = '/images/states/s3.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen3.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S3')
       },
       C: function(){
@@ -278,7 +293,7 @@ const machine = {
         console.log('G')
         document.getElementById("stateImage").src = '/images/states/s5.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen5.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S5')
       },
       H: function(){
@@ -315,7 +330,7 @@ const machine = {
         console.log('B')
         document.getElementById("stateImage").src = '/images/states/s4.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S4')
       },
       C: function(){
@@ -339,7 +354,7 @@ const machine = {
         console.log('H')
         document.getElementById("stateImage").src = '/images/states/s6.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S6')
       },
       I: function(){
@@ -348,7 +363,7 @@ const machine = {
         console.log('I')
         document.getElementById("stateImage").src = '/images/states/s6.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S6')
       },
       J: function(){
@@ -380,7 +395,7 @@ const machine = {
         console.log('B')
         document.getElementById("stateImage").src = '/images/states/s5.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen5.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S5')
       },
       C: function(){
@@ -406,21 +421,23 @@ const machine = {
       },
       J: function(){
         //console.log("ไม่สามารถเลือกชำระเงินสด")
-        isCredit = false
         console.log('J')
+        total_price = summary(ticket,amount,isMember)
+        console.log(total_price)
         document.getElementById("stateImage").src = '/images/states/s7.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S7')
       },
       K: function(){
         //console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
-        isCredit = true
         console.log('K')
-        document.getElementById("stateImage").src = '/images/states/s7.jpg'
-        document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
-        console.log(this.state)
-        this.changeState('S7')
+        total_price = summary(ticket,amount,isMember)
+        console.log(total_price)
+        document.getElementById("stateImage").src = '/images/states/s8.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
+        //console.log(this.state)
+        this.changeState('S8')
       },
       L: function(){
         console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
@@ -441,11 +458,11 @@ const machine = {
       },
       B: function (){
         //console.log("ไม่สามารถย้อนกลับได้")
-        isCredit = false
         console.log('B')
+        total_price = 0
         document.getElementById("stateImage").src = '/images/states/s6.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
-        console.log(this.state)
+        //console.log(this.state)
         this.changeState('S6')
       },
       C: function(){
@@ -476,103 +493,58 @@ const machine = {
         console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
       },
       L: function(){
-        if(isCredit){
-          console.log("ไม่สามารถใส่แบงค์ 1000 บาท")    
+        paid = paid + 1000
+        if( paid >= price ){
+          console.log('L')
+          document.getElementById("stateImage").src = '/images/states/s9.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
+          //console.log(this.state)
+          this.changeState('S9')
         }
         else{
-          paid = paid + 1000
-          if( paid > price ){
-            console.log('L')
-            document.getElementById("stateImage").src = '/images/states/s9.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
-            console.log(this.state)
-            this.changeState('S9')
-          }
-          else if( paid == price ){
-            console.log('L')
-            document.getElementById("stateImage").src = '/images/states/s8.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
-            console.log(this.state)
-            this.changeState('S8')
-          }
-          else{
-            console.log('L')
-            document.getElementById("stateImage").src = '/images/states/s7.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
-            console.log(this.state)
-            this.changeState('S7')
-          }
+          console.log('L')
+          document.getElementById("stateImage").src = '/images/states/s7.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
+          //console.log(this.state)
+          this.changeState('S7')
         }
       },
       M: function(){
-        if(isCredit){
-          console.log("ไม่สามารถใส่แบงค์ 100 บาท")    
+        paid = paid + 100
+        if( paid >= price ){
+          console.log('M')
+          document.getElementById("stateImage").src = '/images/states/s9.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
+          //console.log(this.state)
+          this.changeState('S9')
         }
         else{
-          paid = paid + 100
-          if( paid > price ){
-            console.log('M')
-            document.getElementById("stateImage").src = '/images/states/s9.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
-            console.log(this.state)
-            this.changeState('S9')
-          }
-          else if( paid == price ){
-            console.log('M')
-            document.getElementById("stateImage").src = '/images/states/s8.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
-            console.log(this.state)
-            this.changeState('S8')
-          }
-          else{
-            console.log('M')
-            document.getElementById("stateImage").src = '/images/states/s7.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
-            console.log(this.state)
-            this.changeState('S7')
-          }
+          console.log('M')
+          document.getElementById("stateImage").src = '/images/states/s7.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
+          //console.log(this.state)
+          this.changeState('S7')
         }
       },
       N: function(){
-        if(isCredit){
-          console.log("ไม่สามารถใส่แบงค์ 20 บาท")    
+        paid = paid + 20
+        if( paid >= price ){
+          console.log('N')
+          document.getElementById("stateImage").src = '/images/states/s9.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
+          //console.log(this.state)
+          this.changeState('S9')
         }
         else{
-          paid = paid + 100
-          if( paid > price ){
-            console.log('N')
-            document.getElementById("stateImage").src = '/images/states/s9.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
-            console.log(this.state)
-            this.changeState('S9')
-          }
-          else if( paid == price ){
-            console.log('N')
-            document.getElementById("stateImage").src = '/images/states/s8.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
-            console.log(this.state)
-            this.changeState('S8')
-          }
-          else{
-            console.log('N')
-            document.getElementById("stateImage").src = '/images/states/s7.jpg'
-            document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
-            console.log(this.state)
-            this.changeState('S7')
-          }
+          console.log('N')
+          document.getElementById("stateImage").src = '/images/states/s7.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
+          //console.log(this.state)
+          this.changeState('S7')
         }
       },
       O: function(){
-        if(isCredit){
-          console.log('O')
-          document.getElementById("stateImage").src = '/images/states/s8.jpg'
-          document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
-          console.log(this.state)
-          this.changeState('S8')
-        }
-        else{
-          console.log("ไม่สามารถสแกนบัตรเครดิต")
-        }
+        console.log("ไม่สามารถสแกนบัตรเครดิต")
       }
     }, //done
     S8: {
@@ -580,7 +552,13 @@ const machine = {
         console.log("ไม่สามารถกดไปต่อได้")
       },
       B: function (){
-        console.log("ไม่สามารถย้อนกลับได้")
+        //console.log("ไม่สามารถย้อนกลับได้")
+        console.log('B')
+        total_price = 0
+        document.getElementById("stateImage").src = '/images/states/s6.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
+        //console.log(this.state)
+        this.changeState('S6')
       },
       C: function(){
         console.log("ไม่สามารถกดเลือกภาพยนตร์")
@@ -589,39 +567,49 @@ const machine = {
         console.log("ไม่สามารถกดเลือกเวลา")
       },
       E: function(){
-        //console.log("ไม่สามารถกดเลือกที่นั่งได้")
-        console.log('E')
-        document.getElementById("stateImage").src = '/images/states/s4.jpg'
-        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
-        console.log(this.state)
-        this.changeState('S4')
+        console.log("ไม่สามารถกดเลือกที่นั่งได้")
       },
       F: function(){
-        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
       },
       G: function(){
-        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
       },
       H: function(){
-        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
       },
       I: function(){
-        console.log("ไม่สามารถเลือกชำระเงินสด")
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
       },
       J: function(){
-        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+        console.log("ไม่สามารถเลือกชำระเงินสด")
       },
       K: function(){
-        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
       },
       L: function(){
-        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
       },
       M: function(){
-        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
       },
       N: function(){
-        console.log("ไม่สามารถสแกนบัตรเครดิต")
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      O: function(){
+        //console.log("ไม่สามารถสแกนบัตรเครดิต")
+        console.log('O')
+        var pass = prompt('Please enter your card\'s password')
+        if(pass === password){
+          paid = total_price
+          document.getElementById("stateImage").src = '/images/states/s9.jpg'
+          document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
+          //console.log(this.state)
+          this.changeState('S9')  
+        }
+        else{
+          alert('Wrong Password!!!')
+        }
       }
     },
     S9: {
@@ -802,6 +790,14 @@ function clickO(){
   document.getElementById("languageText").innerHTML = inputbutton.join(" ")
 }
 
+function summary(_price,_amount,_member){
+  var total = _price * _amount
+  if(_member){
+    total = total / 2
+  }
+
+  return total
+}
 
 
 // function product() {
