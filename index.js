@@ -4,7 +4,7 @@ var amount = 0
 var ticket = 0
 var paid = 0
 var total_price = 0
-const password = 010520
+const password = '010520'
 /*
 A แตะหน้าจอเพื่อไปต่อ       S0 แสดงโฆษณา
 B กดกลับไปstate ก่อนหน้า   S1 เลือกภาพยนต์
@@ -205,7 +205,7 @@ const machine = {
       E: function(){
         //console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
         console.log('E')
-        amount = prompt('Enter amount of ticket.')
+        amount = prompt('Enter amount of ticket.(Normal)')
         if(amount > 0){
           console.log(amount)
           ticket = 240
@@ -221,7 +221,7 @@ const machine = {
       F: function(){
         //console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
         console.log('F')
-        amount = prompt('Enter amount of ticket.')
+        amount = prompt('Enter amount of ticket.(Sofa)')
         if(amount > 0){
           console.log(amount)
           ticket = 360
@@ -494,7 +494,7 @@ const machine = {
       },
       L: function(){
         paid = paid + 1000
-        if( paid >= price ){
+        if( paid >= total_price ){
           console.log('L')
           document.getElementById("stateImage").src = '/images/states/s9.jpg'
           document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
@@ -511,7 +511,7 @@ const machine = {
       },
       M: function(){
         paid = paid + 100
-        if( paid >= price ){
+        if( paid >= total_price ){
           console.log('M')
           document.getElementById("stateImage").src = '/images/states/s9.jpg'
           document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
@@ -528,7 +528,7 @@ const machine = {
       },
       N: function(){
         paid = paid + 20
-        if( paid >= price ){
+        if( paid >= total_price ){
           console.log('N')
           document.getElementById("stateImage").src = '/images/states/s9.jpg'
           document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
@@ -600,7 +600,7 @@ const machine = {
         //console.log("ไม่สามารถสแกนบัตรเครดิต")
         console.log('O')
         var pass = prompt('Please enter your card\'s password')
-        if(pass === password){
+        if(pass == password){
           paid = total_price
           document.getElementById("stateImage").src = '/images/states/s9.jpg'
           document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
@@ -626,12 +626,7 @@ const machine = {
         console.log("ไม่สามารถกดเลือกเวลา")
       },
       E: function(){
-        //console.log("ไม่สามารถกดเลือกที่นั่งได้")
-        console.log('E')
-        document.getElementById("stateImage").src = '/images/states/s4.jpg'
-        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
-        console.log(this.state)
-        this.changeState('S4')
+        console.log("ไม่สามารถกดเลือกที่นั่งได้")
       },
       F: function(){
         console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
