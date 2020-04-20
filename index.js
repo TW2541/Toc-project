@@ -28,8 +28,8 @@ const machine = {
     S0:{
       A: function (){
         console.log('A')
-        document.getElementById("stateImage").src = '/images/states/s1.jpg'
-        document.getElementById("machineImage").src = '/images/machines/screen1.jpg'
+        document.getElementById("stateImage").src = './images/states/s1.jpg'
+        document.getElementById("machineImage").src = './images/machines/screen1.jpg'
         //console.log(this.state)
         this.changeState('S1')
       },
@@ -85,8 +85,8 @@ const machine = {
       },
       C: function(){
         console.log('C')
-        document.getElementById("stateImage").src = '/images/states/s2.jpg'
-        document.getElementById("machineImage").src = '/images/machines/screen2.jpg'
+        document.getElementById("stateImage").src = './images/states/s2.jpg'
+        document.getElementById("machineImage").src = './images/machines/screen2.jpg'
         //console.log(this.state)
         this.changeState('S2')
       },
