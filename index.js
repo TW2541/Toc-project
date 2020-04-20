@@ -4,7 +4,8 @@ var amount = 0
 var ticket = 0
 var paid = 0
 var total_price = 0
-const password = 010520
+const password = '010520'
+var cols = document.getElementsByClassName("price")
 /*
 A แตะหน้าจอเพื่อไปต่อ       S0 แสดงโฆษณา
 B กดกลับไปstate ก่อนหน้า   S1 เลือกภาพยนต์
@@ -74,6 +75,12 @@ const machine = {
       },
       O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }, //done
     S1: {
@@ -125,6 +132,12 @@ const machine = {
       },
       O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }, //done
     S2: {
@@ -182,6 +195,12 @@ const machine = {
       },
       O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }, //done
     S3: {
@@ -205,7 +224,7 @@ const machine = {
       E: function(){
         //console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
         console.log('E')
-        amount = prompt('Enter amount of ticket.')
+        amount = prompt('Enter amount of ticket.(Normal)')
         if(amount > 0){
           console.log(amount)
           ticket = 240
@@ -221,7 +240,7 @@ const machine = {
       F: function(){
         //console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
         console.log('F')
-        amount = prompt('Enter amount of ticket.')
+        amount = prompt('Enter amount of ticket.(Sofa)')
         if(amount > 0){
           console.log(amount)
           ticket = 360
@@ -260,6 +279,12 @@ const machine = {
       },
       O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }, //done
     S4: {
@@ -319,6 +344,12 @@ const machine = {
       },
       O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }, //done
     S5: {
@@ -383,6 +414,12 @@ const machine = {
       },
       O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }, //done
     S6: {
@@ -393,6 +430,7 @@ const machine = {
         //console.log("ไม่สามารถย้อนกลับได้")
         isMember = false
         console.log('B')
+
         document.getElementById("stateImage").src = '/images/states/s5.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen5.jpg'
         //console.log(this.state)
@@ -424,6 +462,15 @@ const machine = {
         console.log('J')
         total_price = summary(ticket,amount,isMember)
         console.log(total_price)
+
+        document.getElementById("seat").style.visibility = 'visible'
+        document.getElementById("member").style.visibility = 'visible'
+        if(isMember){ document.getElementById("member").innerHTML = 'Yes' }  
+        else { document.getElementById("member").innerHTML = 'No' } 
+        document.getElementById("Total").style.visibility = 'visible'
+        document.getElementById("Paid").style.visibility = 'visible'
+        document.getElementById("Total").innerHTML = total_price
+        document.getElementById("Paid").innerHTML = paid
         document.getElementById("stateImage").src = '/images/states/s7.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen7.jpg'
         //console.log(this.state)
@@ -434,6 +481,15 @@ const machine = {
         console.log('K')
         total_price = summary(ticket,amount,isMember)
         console.log(total_price)
+
+        document.getElementById("seat").style.visibility = 'visible'
+        document.getElementById("member").style.visibility = 'visible'
+        if(isMember){ document.getElementById("member").innerHTML = 'Yes' }  
+        else { document.getElementById("member").innerHTML = 'No' } 
+        document.getElementById("Total").style.visibility = 'visible'
+        document.getElementById("Total").innerHTML = total_price
+        cols[0].style.top = '56.9%'
+
         document.getElementById("stateImage").src = '/images/states/s8.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen8.jpg'
         //console.log(this.state)
@@ -450,6 +506,12 @@ const machine = {
       },
       O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }, //done
     S7: {
@@ -460,6 +522,11 @@ const machine = {
         //console.log("ไม่สามารถย้อนกลับได้")
         console.log('B')
         total_price = 0
+
+        document.getElementById("seat").style.visibility = 'hidden'
+        document.getElementById("member").style.visibility = 'hidden'
+        document.getElementById("Total").style.visibility = 'hidden'
+        document.getElementById("Paid").style.visibility = 'hidden'
         document.getElementById("stateImage").src = '/images/states/s6.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
         //console.log(this.state)
@@ -494,8 +561,16 @@ const machine = {
       },
       L: function(){
         paid = paid + 1000
-        if( paid >= price ){
+        document.getElementById("Paid").innerHTML = paid
+        if( paid >= total_price ){
           console.log('L')
+
+          document.getElementById("seat").style.visibility = 'hidden'
+          document.getElementById("member").style.visibility = 'hidden'
+          document.getElementById("Total").style.visibility = 'hidden'
+          document.getElementById("Paid").style.visibility = 'hidden'
+          document.getElementById("changed").style.visibility = 'visible'
+          document.getElementById("changed").innerHTML = 'Change : ' + (paid - total_price)
           document.getElementById("stateImage").src = '/images/states/s9.jpg'
           document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
           //console.log(this.state)
@@ -511,8 +586,16 @@ const machine = {
       },
       M: function(){
         paid = paid + 100
-        if( paid >= price ){
+        document.getElementById("Paid").innerHTML = paid
+        if( paid >= total_price ){
           console.log('M')
+
+          document.getElementById("seat").style.visibility = 'hidden'
+          document.getElementById("member").style.visibility = 'hidden'
+          document.getElementById("Total").style.visibility = 'hidden'
+          document.getElementById("Paid").style.visibility = 'hidden'
+          document.getElementById("changed").style.visibility = 'visible'
+          document.getElementById("changed").innerHTML = 'Change : ' + (paid - total_price)
           document.getElementById("stateImage").src = '/images/states/s9.jpg'
           document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
           //console.log(this.state)
@@ -528,8 +611,17 @@ const machine = {
       },
       N: function(){
         paid = paid + 20
-        if( paid >= price ){
+        //document.getElementById("Total").innerHTML = total_price
+        document.getElementById("Paid").innerHTML = paid
+        if( paid >= total_price ){
           console.log('N')
+
+          document.getElementById("seat").style.visibility = 'hidden'
+          document.getElementById("member").style.visibility = 'hidden'
+          document.getElementById("Total").style.visibility = 'hidden'
+          document.getElementById("Paid").style.visibility = 'hidden'
+          document.getElementById("changed").style.visibility = 'visible'
+          document.getElementById("changed").innerHTML = 'Change : ' + (paid - total_price)
           document.getElementById("stateImage").src = '/images/states/s9.jpg'
           document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
           //console.log(this.state)
@@ -545,6 +637,12 @@ const machine = {
       },
       O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }, //done
     S8: {
@@ -555,6 +653,11 @@ const machine = {
         //console.log("ไม่สามารถย้อนกลับได้")
         console.log('B')
         total_price = 0
+        cols[0].style.top = '54.7%'
+        document.getElementById("seat").style.visibility = 'hidden'
+        document.getElementById("member").style.visibility = 'hidden'
+        document.getElementById("Total").style.visibility = 'hidden'
+        document.getElementById("Paid").style.visibility = 'hidden'
         document.getElementById("stateImage").src = '/images/states/s6.jpg'
         document.getElementById("machineImage").src = '/images/machines/screen6.jpg'
         //console.log(this.state)
@@ -600,8 +703,12 @@ const machine = {
         //console.log("ไม่สามารถสแกนบัตรเครดิต")
         console.log('O')
         var pass = prompt('Please enter your card\'s password')
-        if(pass === password){
+        if(pass == password){
           paid = total_price
+          document.getElementById("seat").style.visibility = 'hidden'
+          document.getElementById("member").style.visibility = 'hidden'
+          document.getElementById("Total").style.visibility = 'hidden'
+          document.getElementById("Paid").style.visibility = 'hidden'
           document.getElementById("stateImage").src = '/images/states/s9.jpg'
           document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
           //console.log(this.state)
@@ -610,9 +717,114 @@ const machine = {
         else{
           alert('Wrong Password!!!')
         }
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     },
     S9: {
+      A: function (){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        document.getElementById("machineImage").src = '/images/machines/screen9.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      B: function (){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      C: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      D: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      E: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      F: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      G: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      H: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      I: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      J: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      K: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      L: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      M: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      N: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      O: function(){
+        document.getElementById("changed").style.visibility = 'hidden'
+        document.getElementById("stateImage").src = '/images/states/trap.jpg'
+        //console.log(this.state)
+        this.changeState('trap')
+      },
+      Cf: function(){
+        alert('Accept!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
+      }
+    },
+    trap: {
       A: function (){
         console.log("ไม่สามารถกดไปต่อได้")
       },
@@ -626,39 +838,43 @@ const machine = {
         console.log("ไม่สามารถกดเลือกเวลา")
       },
       E: function(){
-        //console.log("ไม่สามารถกดเลือกที่นั่งได้")
-        console.log('E')
-        document.getElementById("stateImage").src = '/images/states/s4.jpg'
-        document.getElementById("machineImage").src = '/images/machines/screen4.jpg'
-        console.log(this.state)
-        this.changeState('S4')
+        console.log("ไม่สามารถกดเลือกที่นั่งธรรมดาได้")
       },
       F: function(){
-        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
+        console.log("ไม่สามารถเลือกที่นั่งโซฟาได้")
       },
       G: function(){
-        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
+        console.log("ไม่สามารถกดเลือกขนมและเครื่องดื่ม")
       },
       H: function(){
-        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
+        console.log("ไม่สามารถเลือกไม่เป็นสมาชิกได้")
       },
       I: function(){
-        console.log("ไม่สามารถเลือกชำระเงินสด")
+        console.log("ไม่สามารถแสกนบัตรสมาชิกได้")
       },
       J: function(){
-        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
+        console.log("ไม่สามารถเลือกชำระเงินสด")
       },
       K: function(){
-        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
+        console.log("ไม่สามารถเลือกชำระบัตรเครดิต")
       },
       L: function(){
-        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
+        console.log("ไม่สามารถใส่แบงค์ 1000 บาท")
       },
       M: function(){
-        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+        console.log("ไม่สามารถใส่แบงค์ 100 บาท")
       },
       N: function(){
+        console.log("ไม่สามารถใส่แบงค์ 20 บาท")
+      },
+      O: function(){
         console.log("ไม่สามารถสแกนบัตรเครดิต")
+      },
+      Cf: function(){
+        alert('Reject!!')
+      },
+      Rs: function(){
+        this.changeState('S0')
       }
     }
   },
@@ -789,6 +1005,34 @@ function clickO(){
   inputbutton.push("O")
   document.getElementById("languageText").innerHTML = inputbutton.join(" ")
 }
+function Confirm(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("Cf")
+  console.log(Jeff.state)
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
+function Restart(){
+  //[touchscreen,goBack] = [false,!goBack]
+  Jeff.dispatch("Rs")
+  console.log(Jeff.state)
+  console.log('Restart')
+  document.getElementById("seat").style.visibility = 'hidden'
+  document.getElementById("member").style.visibility = 'hidden'
+  document.getElementById("Total").style.visibility = 'hidden'
+  document.getElementById("Paid").style.visibility = 'hidden'
+  document.getElementById("changed").style.visibility = 'hidden'
+  document.getElementById("stateImage").src = './images/states/s0.jpg'
+  document.getElementById("machineImage").src = './images/machines/screen0.jpg'
+  inputbutton = []
+  isMember = false
+  amount = 0
+  ticket = 0
+  paid = 0
+  total_price = 0
+  cols[0].style.top = '54.7%'
+  //console.log(this.state)
+  document.getElementById("languageText").innerHTML = inputbutton.join(" ")
+}
 
 function summary(_price,_amount,_member){
   var total = _price * _amount
@@ -797,6 +1041,9 @@ function summary(_price,_amount,_member){
   }
 
   return total
+}
+function showInit(){
+  alert('ตู้ขายตั๋วภาพยนต์นี้ เป็นNondeterministic Finite Automata\nผู้ใช้สามารถทดลองใช้โดยกดปุ่มinputทางฝั่งขวา ส่วนทางฝั่งซ้ายนั้นเป็นเพียงจอแสดงผล\nผู้ใช้สามารถทราบรายละเอียดของstateและinputได้จากช่องด้านล่างขวา\nเมื่อผู้ใช้ใส่inputเท่าที่ต้องการแล้วเมื่ออยู่ในfinal stateเมื่อกดConfirmจะแสดง Accept นอกนั้น reject')
 }
 
 

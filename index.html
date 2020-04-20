@@ -1,135 +1,142 @@
 <!DOCTYPE html>
 
 <html class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vidaloka&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title></title>
-  <link rel="stylesheet" href="index.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Vidaloka&display=swap" rel="stylesheet">
-</head>
-
-<body>
-  <script src="index.js"></script>
-
-  <div class="header">
-    <div class="container">
-      <h1>Theory of Computation Project</h1>
-    </div>
-  </div>
-
-
-  <div class="flex-container">
-    <div id="movie-ticket-machine">
-      <p>Movie ticket machine</p>
-      <img src="./images/machines/screen0.jpg" style="width:530px" id="machineImage" />
-    </div>
-    <div id="state">
-      <!-- <b>Language</b>  -->
-      <fieldset name="language">
-        <legend id="lg">Language</legend>
-        <div id="LgInput">
-          <label id="languageText"></label>
-        </div>
-      </fieldset>
-      <div id="stateStep">
-        <p>state something...</p>
-        <img src="./images/states/s0.jpg"  style="width: 640px;" id="stateImage">
+  <body>
+    <script src="index.js"></script>
+    <div class="header">
+      <div class="container">
+        <h1>Theory of Computation Project</h1>
       </div>
-      <fieldset name="Input">
-        <legend id="lg">Input</legend>
-        <div class="form-popup" id="myForm">
-          <form action="/action_page.php" class="form-container">
-            <h1>Login</h1>
-        
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
-        
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-        
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-          </form>
-        </div>
-        <div class="flexLg">
-          <input type="button" value="A" onclick="clickA()">
-          <input type="button" value="B" onclick="clickB()">
-          <input type="button" value="C" onclick="clickC()">
-          <input type="button" value="D" onclick="clickD()">
-          <input type="button" value="E" onclick="clickE()">
-          <input type="button" value="F" onclick="clickF()">
-          <input type="button" value="G" onclick="clickG()">
-          <input type="button" value="H" onclick="clickH()">
-          <input type="button" value="I" onclick="clickI()">
-          <input type="button" value="J" onclick="clickJ()">
-          <input type="button" value="K" onclick="clickK()">
-          <input type="button" value="L" onclick="clickL()">
-          <input type="button" value="M" onclick="clickM()">
-          <input type="button" value="N" onclick="clickN()">
-          <input type="button" value="O" onclick="clickO()">
-        </div>
-      </fieldset>
-      <div class="flex-result">
-        <div class="Input_show"> 
-          <div class="input_container">
-            <p>A : แตะหน้าจอเพื่อไปต่อ</p>
-            <p>C : กดเลือกภาพยนตร์</p>
-            <p>E : กดเลือกที่นั่งธรรมดา</p>
-            <p>G : กดเลือกขนมและเครื่องดื่ม</p>
-            <p>I : สแกนบัตรสมาชิก</p>
-            <p>K : จ่ายบัตรเครดิต</p>
-            <p>M : จ่ายแบงค์ 100 บาท</p>
-            <p>O :สแกนบัตรเครดิต</p>
-          </div>  
-          <div class="input_container2">
-            <p>B : กดกลับไปstate ก่อนหน้า</p>
-            <p>D : กดเลือกเวลาฉายภาพยนตร์</p>
-            <p>F : กดเลือกที่นั่งโซฟา</p>
-            <p>H : ไม่เป็นสมาชิก  </p>
-            <p>J : ชำระเงินสด</p>
-            <p>L : จ่ายแบงค์ 1000 บาท</p>
-            <p>N : จ่ายแบงค์ 20 บาท</p>
-            
+    </div>
+
+    <div class="flex-container">
+      <div id="movie-ticket-machine">
+        <p>Movie ticket machine</p>
+        <div class="fixx">
+          <img
+            src="./images/machines/screen0.jpg"
+            style="width:530px"
+            id="machineImage"
+          />
+          <div class="price">
+            <label id="Total" style="visibility: hidden;">300</label><br />
+            <label id="Paid" style="visibility: hidden;">400</label><br />
           </div>
-          
+          <div class="price_2">
+            <label id="seat" style="visibility: hidden;">D11</label><br />
+            <label id="member" style="visibility: hidden;">No</label><br />
+          </div>
+          <div class="change">
+            <label id="changed" style="visibility: hidden; color:darkred;">Change : 0</label>
+          </div>
         </div>
-        <div class="State_show">
-          <p>S0 : แสดงโฆษณา</p>
-          <p>S1 : เลือกภาพยนต์</p>
-          <p>S2 : เลือกเวลาฉาย</p>
-          <p>S3 : เลือกที่นั่ง</p>
-          <p>S4 : เลือกขนมและเครื่องดื่ม</p>
-          <p>S5 : ตรวจสอบสมาชิก</p>
-          <p>S6 : เลือกวิธีชำระเงิน</p>
-          <p>S7 : ชำระเงินไม่ครบจำนวน</p>
-          <p>S8 : ชำระเงินครบจำนวน</p>
-          <p>S9 : ชำระเงินเกินจำนวน</p>
+        <div class="flexMc">
+          <button class="button_cf" style="background-color: green;" onclick="Confirm()">Confirm</button>
+          <button class="button_cf" style="background-color: red;" onclick="Restart()">Restart</button>
+        </div>
+      </div>
+      <div id="state">
+        <!-- <b>Language</b>  -->
+        <fieldset name="language">
+          <legend id="lg">Language</legend>
+          <div id="LgInput">
+            <label id="languageText"></label>
+          </div>
+        </fieldset>
+        <div id="stateStep">
+          <img
+            src="./images/states/s0.jpg"
+            alt="oh no!"
+            style="width: 650px;"
+            id="stateImage"
+          />
+        </div>
+        <fieldset name="Input">
+          <legend id="lg">Input</legend>
+          <div class="flexLg">
+            <input type="button" value="A" onclick="clickA()" />
+            <input type="button" value="B" onclick="clickB()" />
+            <input type="button" value="C" onclick="clickC()" />
+            <input type="button" value="D" onclick="clickD()" />
+            <input type="button" value="E" onclick="clickE()" />
+            <input type="button" value="F" onclick="clickF()" />
+            <input type="button" value="G" onclick="clickG()" />
+            <input type="button" value="H" onclick="clickH()" />
+            <input type="button" value="I" onclick="clickI()" />
+            <input type="button" value="J" onclick="clickJ()" />
+            <input type="button" value="K" onclick="clickK()" />
+            <input type="button" value="L" onclick="clickL()" />
+            <input type="button" value="M" onclick="clickM()" />
+            <input type="button" value="N" onclick="clickN()" />
+            <input type="button" value="O" onclick="clickO()" />
+          </div>
+        </fieldset>
+        <div class="flex-result">
+          <div class="Input_show">
+            <div class="input_container">
+              <p>A : แตะหน้าจอเพื่อไปต่อ</p>
+              <p>C : กดเลือกภาพยนตร์</p>
+              <p>E : กดเลือกที่นั่งธรรมดา</p>
+              <p>G : กดเลือกขนมและเครื่องดื่ม</p>
+              <p>I : สแกนบัตรสมาชิก</p>
+              <p>K : จ่ายบัตรเครดิต</p>
+              <p>M : จ่ายแบงค์ 100 บาท</p>
+              <p>O :สแกนบัตรเครดิต</p>
+              <p>Password : 010520</p>
+            </div>
+            <div class="input_container2">
+              <p>B : กดกลับไปstate ก่อนหน้า</p>
+              <p>D : กดเลือกเวลาฉายภาพยนตร์</p>
+              <p>F : กดเลือกที่นั่งโซฟา</p>
+              <p>H : ไม่เป็นสมาชิก.</p>
+              <p>J : ชำระเงินสด</p>
+              <p>L : จ่ายแบงค์ 1000 บาท</p>
+              <p>N : จ่ายแบงค์ 20 บาท</p>
+            </div>
+          </div>
+          <div class="State_show">
+            <p>S0 : แสดงโฆษณา</p>
+            <p>S1 : เลือกภาพยนต์</p>
+            <p>S2 : เลือกเวลาฉาย</p>
+            <p>S3 : เลือกที่นั่ง</p>
+            <p>S4 : เลือกขนมและเครื่องดื่ม</p>
+            <p>S5 : ตรวจสอบสมาชิก</p>
+            <p>S6 : เลือกวิธีชำระเงิน</p>
+            <p>S7 : ชำระเงินไม่ครบจำนวน</p>
+            <p>S8 : ชำระเงินครบจำนวน</p>
+            <p>S9 : ชำระเงินเกินจำนวน</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <footer>
-    <div class="container">
-      <h2>Made by</h2>
-      <div class="sub_container">
-        <p>59010415 &ensp; นาย ณัฐชนน ทองแก้ว</p>
-        <p>60010325 &nbsp; นาย ณัฐภัทร พวงพิพัฒน์</p>
-      </div>
-      
-      <div class="sub_container">
-        <p>60010247 &ensp;นาย ชนายุทธ แจ่มขาว</p>
-        <p>60010558 &ensp;นาย บุริศร์ หวังธิติธีรกุล</p>
-      </div>
-      <div class="sub_container">
-        <p>60010271​ &ensp;นาย ฑิฆัมพร​ โอศิริ</p>
-        <p>60010368 &nbsp;นาย ทศ วรศรีวิศาล</p>
-      </div>
-      
-      
-     
-    </div>
-  </footer>
-</body>
+    <footer>
+      <div class="container">
+        <h2>Made by</h2>
+        <div class="sub_container">
+          <p>59010415 &ensp; นาย ณัฐชนน ทองแก้ว</p>
+          <p>60010325 &nbsp; นาย ณัฐภัทร พวงพิพัฒน์</p>
+        </div>
 
+        <div class="sub_container">
+          <p>60010247 &ensp;นาย ชนายุทธ แจ่มขาว</p>
+          <p>60010558 &ensp;นาย บุริศร์ หวังธิติธีรกุล</p>
+        </div>
+        <div class="sub_container">
+          <p>60010271​ &ensp;นาย ฑิฆัมพร​ โอศิริ</p>
+          <p>60010368 &nbsp;นาย ทศ วรศรีวิศาล</p>
+        </div>
+      </div>
+    </footer>
+    <script>showInit()</script>
+  </body>
 </html>
